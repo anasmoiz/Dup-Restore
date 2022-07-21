@@ -50,7 +50,7 @@ echo "Accesstoken: $accesstoken"
 
 # ALTER SCRIPT
 echo -e "Copying duplicity_restore.sh   to   /var/cw/systeam/  \n"
-sed '192,199d' /var/cw/scripts/bash/duplicity_restore.sh  >  /var/cw/systeam/duplicity_restore.sh
+cp /var/cw/scripts/bash/duplicity_restore.sh   /var/cw/systeam/duplicity_restore.sh
 
 # GET APPLICATION NAMES
 databases=$(find /home/master/applications/* -maxdepth 0 -type d -printf '%f\n')
@@ -63,7 +63,7 @@ for db in $databases; do
         # PULLING DUMP
         echo -e "Start Pulling Databases: $db"
         mkdir /var/cw/systeam/$db
-        bash /var/cw/systeam/duplicity_restore.sh   --src $db -r --dst /var/cw/systeam/$db
+        bash /var/cw/systeam/duplicity_restore.sh   --src $db -d --dst /var/cw/systeam/$db
 
         # CREATING DATABASES in MYSQL
         echo "Creating database: $db in mysql"
